@@ -6,25 +6,46 @@ int adj[MAX][MAX];
 void create_graph();
 void display();
 int vertices;
+void insert_edge(int ,int);
+void delete_edge(int ,int);
+
 int main()
 {
               create_graph();
            
                display();
-          
+             
+               int origin,dest,x;
+             
+              while(1)
+           {
+               
+                 printf("Enter 1 to delete the edge\n");
+                 printf("Enter 2 to add the edge\n");
+                  printf("Enter 3 to exit\n"); 
+                   
+                   scanf("%d",&x);
+                     if(x==3)
+                      break;
+                   
+                   switch(x)
+                   {
+                 
+                    case 1: 
+                    printf("Enter the edge to be deleted source and destination\n");
+                    scanf("%d%d",&origin,&dest);
+                    delete_edge(origin,dest);
+                      break;
+                    
+                   case 2:
+                   printf("Enter the edge to be added source and destination\n");
+                   scanf("%d %d",&origin,&dest);
+                     insert_edge(origin,dest);
+                       break;
+                   
+                   } 
 
-
-
-
-
-
-
-
-
-
-
-
-
+              }
 
 }
 void create_graph() //directed graph
@@ -70,5 +91,17 @@ void display(){
            printf("\n");
         }
      
+
+}
+void insert_edge(int origin,int dest)
+{
+     
+     adj[origin][dest]=1;
+
+}
+void delete_edge(int origin,int dest)
+{
+     
+     adj[origin][dest]=0;
 
 }
