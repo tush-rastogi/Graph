@@ -8,7 +8,14 @@ void display();
 int vertices;
 void insert_edge(int ,int);
 void delete_edge(int ,int);
-
+void bfs(int);
+void bf_traversal();
+int queue[MAX];
+int front=-1;
+int end=-1;
+void enqueue(int );
+int dequeue();
+int state[100];
 int main()
 {
               create_graph();
@@ -47,6 +54,9 @@ int main()
 
               }
 
+               printf("BFS of a graph\n");
+               bf_traversal();
+             
 }
 void create_graph() //directed graph
 {
@@ -72,7 +82,6 @@ void create_graph() //directed graph
                       adj[origin][dest]=1;
            
          }
-
 
 }
 
@@ -104,4 +113,105 @@ void delete_edge(int origin,int dest)
      
      adj[origin][dest]=0;
 
+}
+
+void enqueue(int v)
+{
+   
+    if(front==0&&end==MAX-1)
+      {
+        printf("Queue Overflow\n");
+          return ;
+      }
+ 
+ 
+   if(front==-1)
+    {
+      front=0;
+      end=0;
+       queue[end]=v;
+    }
+   
+      else
+      {
+         end++;
+         queue[end]=v;
+      }
+
+}
+
+ int dequeue()
+ {
+ 
+       if(front==-1)
+       {
+          printf("Queue Underflow\n");
+            return -1;
+       
+       }
+ 
+          int y=queue[front];
+             if(front==end)
+             {
+                front=-1;
+                end=-1;
+             }
+          
+            else
+            front++;
+            
+             return y;
+ 
+}
+void bf_traversal()
+{ 
+        int i;
+        for(i=0;i<vertices;i++)
+        {
+          state[i]=0;// node is not visited
+        
+        }   
+     
+        int v;
+        printf("Enter the starting vertices\n");
+        scanf("%d",&v);
+        bfs(v);
+         
+      for(i=0;i<vertices;i++)
+      {
+          if(state[i]==0)
+            bfs(i);
+      }
+
+
+}
+
+
+void bfs(int v)
+{
+
+       int i;
+       state[v]=1;
+        enqueue(v);
+        
+         while(front!=-1)
+         {
+              int x=dequeue();
+                printf("%d ",x);
+                state[x]=1;
+              for(i=0;i<vertices;i++)
+              {
+                  if(adj[x][i]==1&&state[i]==0)
+                      {
+                      enqueue(i);
+                         state[i]=1;
+                         }
+              
+              }
+             
+            
+         }
+        
+        
+      
 }
