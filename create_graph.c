@@ -16,6 +16,8 @@ int end=-1;
 void enqueue(int );
 int dequeue();
 int state[100];
+int distance[MAX];
+int predecessor[MAX];
 int main()
 {
               create_graph();
@@ -193,6 +195,8 @@ void bfs(int v)
        int i;
        state[v]=1;
         enqueue(v);
+        distance[v]=0;
+        predecessor[v]=-1;
         
          while(front!=-1)
          {
@@ -204,6 +208,8 @@ void bfs(int v)
                   if(adj[x][i]==1&&state[i]==0)
                       {
                       enqueue(i);
+                       distance[i]=distance[x]+1;
+                         predecessor[i]=x;
                          state[i]=1;
                          }
               
@@ -211,7 +217,31 @@ void bfs(int v)
              
             
          }
-        
-        
-      
+            printf("\n");
+            
+            
+         printf("Shortest distance of all vertex from starting vertex\n");
+         
+        for(i=0;i<vertices;i++)
+          printf("%d ",distance[i]);
+
+            int v1;
+            printf("\nEnter the vertex whose shortest distance to be find from starting vertex\n");
+            scanf("%d",&v1);
+            
+                 int path[vertices];
+                  int count=1;
+               while(v1!=-1)
+               {
+                   path[count]=v1;
+                    v1=predecessor[v1];
+                         count++;
+               
+               
+               }
+                  
+                for(i=count-1;i>1;i--)
+                 printf("%d-> ",path[i]);
+                 
+                 printf("%d\n",path[i]);
 }
