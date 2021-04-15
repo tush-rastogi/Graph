@@ -185,7 +185,33 @@ void bf_traversal()
             bfs(i);
       }
 
+          
+            
+         printf("Shortest distance of all vertex from starting vertex\n");
+         
+        for(i=0;i<vertices;i++)
+          printf("%d ",distance[i]);
 
+            int v1;
+            printf("\nEnter the vertex whose shortest distance to be find from starting vertex\n");
+            scanf("%d",&v1);
+            
+                 int path[vertices];
+                  int count=1;
+               while(v1!=-1)
+               {
+                   path[count]=v1;
+                    v1=predecessor[v1];
+                         count++;
+               
+               
+               }
+                  
+                for(i=count-1;i>1;i--)
+                 printf("%d-> ",path[i]);
+                 
+                 printf("%d\n",path[i]);
+         
 }
 
 
@@ -217,31 +243,5 @@ void bfs(int v)
              
             
          }
-            printf("\n");
-            
-            
-         printf("Shortest distance of all vertex from starting vertex\n");
          
-        for(i=0;i<vertices;i++)
-          printf("%d ",distance[i]);
-
-            int v1;
-            printf("\nEnter the vertex whose shortest distance to be find from starting vertex\n");
-            scanf("%d",&v1);
-            
-                 int path[vertices];
-                  int count=1;
-               while(v1!=-1)
-               {
-                   path[count]=v1;
-                    v1=predecessor[v1];
-                         count++;
-               
-               
-               }
-                  
-                for(i=count-1;i>1;i--)
-                 printf("%d-> ",path[i]);
-                 
-                 printf("%d\n",path[i]);
 }
