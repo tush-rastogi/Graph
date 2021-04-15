@@ -18,8 +18,17 @@ int dequeue();
 int state[100];
 int distance[MAX];
 int predecessor[MAX];
+int label[MAX];
+int comp=1;
+int di=1;
+
 int main()
 {
+                printf("Enter 0 for undirected graph else 1 for directed\n");
+                   scanf("%d",&di);
+                   
+                   
+              
               create_graph();
            
                display();
@@ -59,6 +68,12 @@ int main()
                printf("BFS of a graph\n");
                bf_traversal();
              
+
+
+           for(int i=0;i<vertices;i++)
+             printf("Vertices %d is in label %d\n",i,label[i]);
+
+
 }
 void create_graph() //directed graph
 {
@@ -67,7 +82,13 @@ void create_graph() //directed graph
     printf("Enter the number of vertices\n");
       scanf("%d",&vertices);
       
-       int max_edge=vertices*(vertices-1);//directed graph
+          int max_edge;
+          
+        if(di==1)
+       max_edge=vertices*(vertices-1);//directed graph
+
+           else
+           max_edge=(vertices*(vertices-1))/2;
 
          int i,origin,dest;
          for(i=1;i<=max_edge;i++)
@@ -182,12 +203,20 @@ void bf_traversal()
       for(i=0;i<vertices;i++)
       {
           if(state[i]==0)
+           {
+             comp++;
             bfs(i);
+      
+              }
       }
 
-          
-            
-         printf("Shortest distance of all vertex from starting vertex\n");
+           if(comp==1&&di==0)
+           printf("Graph is connected\n");
+           
+            else if(comp>1&&di==0)
+            printf("Graph is not connected\n");   
+         
+          printf("Shortest distance of all vertex from starting vertex\n");
          
         for(i=0;i<vertices;i++)
           printf("%d ",distance[i]);
@@ -221,6 +250,7 @@ void bfs(int v)
        int i;
        state[v]=1;
         enqueue(v);
+        label[v]=comp;
         distance[v]=0;
         predecessor[v]=-1;
         
@@ -237,6 +267,7 @@ void bfs(int v)
                        distance[i]=distance[x]+1;
                          predecessor[i]=x;
                          state[i]=1;
+                         label[i]=comp;
                          }
               
               }
