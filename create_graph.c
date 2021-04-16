@@ -27,6 +27,7 @@ int pop();
 void push(int);
 void DFS(int);
 void DFS_travesral();
+int dfs_predecessor[MAX];
 int main()
 {
                 printf("Enter 0 for undirected graph else 1 for directed\n");
@@ -316,12 +317,17 @@ void DFS_travesral()
                  DFS(v);
 
 
+                for(i=0;i<vertices;i++)
+                    if(state[i]==0)
+                      DFS(i);
+
+
 }
   void DFS(int v)
   {
        int i;
         push(v);
-        
+          dfs_predecessor[v]=-1;
         while(top!=-1)
         {
            int x=pop();
@@ -332,8 +338,11 @@ void DFS_travesral()
              for(i=0;i<vertices;i++)
              {
                 if(adj[x][i]==1&&state[i]==0)
+                 {
                   push(i);
-             
+                    dfs_predecessor[i]=x;
+                    
+                   }   
              }
         
         }
