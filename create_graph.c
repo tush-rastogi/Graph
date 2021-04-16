@@ -21,7 +21,12 @@ int predecessor[MAX];
 int label[MAX];
 int comp=1;
 int di=1;
-
+int stack[MAX];
+int top=-1;
+int pop();
+void push(int);
+void DFS(int);
+void DFS_travesral();
 int main()
 {
                 printf("Enter 0 for undirected graph else 1 for directed\n");
@@ -35,7 +40,7 @@ int main()
              
                int origin,dest,x;
              
-              while(1)
+           /*   while(1)
            {
                
                  printf("Enter 1 to delete the edge\n");
@@ -71,8 +76,12 @@ int main()
 
 
            for(int i=0;i<vertices;i++)
-             printf("Vertices %d is in label %d\n",i,label[i]);
+             printf("Vertices %d is in label %d\n",i,label[i]);*/
 
+
+          printf("DFS of graph is\n");
+          
+            DFS_travesral();
 
 }
 void create_graph() //directed graph
@@ -125,7 +134,7 @@ void display(){
      
 
 }
-void insert_edge(int origin,int dest)
+/*void insert_edge(int origin,int dest)
 {
      
      adj[origin][dest]=1;
@@ -271,8 +280,66 @@ void bfs(int v)
                          }
               
               }
-             
-            
-         }
+             }
          
 }
+*/
+void push(int v)
+{
+    top++;
+    stack[top]=v;
+}
+
+int pop()
+{
+
+    if(top==-1)
+     {
+      printf("Stack Underflow");
+       return -1;
+     }
+
+        return stack[top--];
+}
+
+void DFS_travesral()
+{
+          int i;
+          for(i=0;i<vertices;i++)
+              state[i]=0;
+          
+              printf("Enter the starting vertex\n");
+              
+                 int v;
+                 scanf("%d",&v);
+                 
+                 DFS(v);
+
+
+}
+  void DFS(int v)
+  {
+       int i;
+        push(v);
+        
+        while(top!=-1)
+        {
+           int x=pop();
+              if(state[x]==0)
+              printf("%d ",x);
+              
+               state[x]=1;
+             for(i=0;i<vertices;i++)
+             {
+                if(adj[x][i]==1&&state[i]==0)
+                  push(i);
+             
+             }
+        
+        }
+  
+  
+  }
+
+
+
