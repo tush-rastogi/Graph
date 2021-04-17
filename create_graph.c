@@ -28,6 +28,9 @@ void push(int);
 void DFS(int);
 void DFS_travesral();
 int dfs_predecessor[MAX];
+void reverse_graph();
+int adjr[MAX][MAX];
+void DFSR(int);
 int main()
 {
                 printf("Enter 0 for undirected graph else 1 for directed\n");
@@ -325,12 +328,28 @@ void DFS_travesral()
                
 
                 for(i=0;i<vertices;i++)
-                    if(state[i]==0)
-                      DFS(i);
+                    {
+                    
+                          if(state[i]==0)
+                            {
+                               printf("Graph is not strongly connected");
+                               exit(1);
+                            
+                            }
+  
+                          
+                    }
+ 
+                            for(i=0;i<vertices;i++)
+                             state[i]=0;  
+                     
+                        printf("\n");
+                       reverse_graph(v);    
+
 
 
 }
-  /*void DFS(int v)
+  void DFS(int v)
   {
        int i;
         push(v);
@@ -356,9 +375,9 @@ void DFS_travesral()
   
   
   }
-*/
 
-  /*void DFS(int v)
+
+ /* void DFS(int v)
  {
 
       int i;
@@ -372,7 +391,7 @@ void DFS_travesral()
  }*/
  
  
-   void DFS(int v)
+  /* void DFS(int v)
    {
    
            dfs_predecessor[v]=-1;
@@ -416,5 +435,76 @@ void DFS_travesral()
             
              printf("Graph is not cyclic");
            
-              }
+              }*/
+              
+    void reverse_graph(int v)
+    {
+    
+        int i,j;
+         for(i=0;i<vertices;i++)
+         {
+           for(j=0;j<vertices;j++)
+           {
+              adjr[j][i]=adj[i][j];
+           
+           }
+         
+         } 
+    
+             DFSR(v);
+             
+                for(i=0;i<vertices;i++)
+                    {
+                    
+                         
+                             if(state[i]==0)
+                           {
+                             printf("Graph is not strongly connected");
+                              exit(1);
+                           }
+  
+                    }
 
+                     printf("Graph is strongly connected\n");
+                     
+    
+ 
+ 
+ 
+ }          
+    void DFSR(int v) // DFS on reverse graph
+  {
+       int i;
+        push(v);
+          dfs_predecessor[v]=-1;
+        while(top!=-1)
+        {
+           int x=pop();
+              if(state[x]==0)
+              printf("%d ",x);
+              
+               state[x]=1;
+             for(i=0;i<vertices;i++)
+             {
+                if(adjr[x][i]==1&&state[i]==0)
+                 {
+                  push(i);
+                    dfs_predecessor[i]=x;
+                    
+                   }   
+             }
+        
+        }
+  
+  
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
