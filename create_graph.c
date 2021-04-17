@@ -108,11 +108,18 @@ void create_graph() //directed graph
               printf("Enter origin and destination\n");
                scanf("%d%d",&origin,&dest);
                
+                   
+                
+                
                   if(origin==-1&&dest==-1)
                     break;
                     
                       else
+                      {
                       adj[origin][dest]=1;
+                          if(di==0)        //undirected graph
+                        adj[dest][origin]=1;
+                      }
            
          }
 
@@ -285,7 +292,7 @@ void bfs(int v)
          
 }
 */
-/*void push(int v)
+void push(int v)
 {
     top++;
     stack[top]=v;
@@ -301,7 +308,7 @@ int pop()
      }
 
         return stack[top--];
-}*/
+}
 
 void DFS_travesral()
 {
@@ -315,7 +322,7 @@ void DFS_travesral()
                  scanf("%d",&v);
                  
                  DFS(v);
-
+               
 
                 for(i=0;i<vertices;i++)
                     if(state[i]==0)
@@ -351,7 +358,7 @@ void DFS_travesral()
   }
 */
 
-  void DFS(int v)
+  /*void DFS(int v)
  {
 
       int i;
@@ -362,6 +369,52 @@ void DFS_travesral()
           for(i=0;i<vertices;i++)
             if(adj[v][i]==1&&state[i]==0)
                DFS(i);
- }
+ }*/
+ 
+ 
+   void DFS(int v)
+   {
    
+           dfs_predecessor[v]=-1;
+         state[v]=1;
+            push(v);
+           int i;
+          
+           while(top!=-1)
+           {
+           
+               int x=pop();
+               state[x]=1;
+               for(i=0;i<vertices;i++)
+               {
+               
+                       
+                     if(adj[x][i]==1&&state[i]==0)
+                     {
+                        dfs_predecessor[i]=x;
+                          push(i);
+                     }  
+                     
+                     
+                      else if(dfs_predecessor[x]!=-1)
+                     {
+                       if(adj[x][i]==1&&dfs_predecessor[x]!=i&&state[i]==1)
+                      {
+                       printf("Graph is Cyclic ");
+                        exit(1);
+                      
+                      } 
+                       
+                    }
+                    
+               
+                }
+           
+           
+           }
+           
+            
+             printf("Graph is not cyclic");
+           
+              }
 
