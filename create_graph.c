@@ -285,7 +285,7 @@ void bfs(int v)
          
 }
 */
-void push(int v)
+/*void push(int v)
 {
     top++;
     stack[top]=v;
@@ -301,7 +301,7 @@ int pop()
      }
 
         return stack[top--];
-}
+}*/
 
 void DFS_travesral()
 {
@@ -323,7 +323,7 @@ void DFS_travesral()
 
 
 }
-  void DFS(int v)
+  /*void DFS(int v)
   {
        int i;
         push(v);
@@ -349,6 +349,19 @@ void DFS_travesral()
   
   
   }
+*/
 
+  void DFS(int v)
+ {
 
+      int i;
+      printf("%d ",v);
+      
+         state[v]=1;
+         
+          for(i=0;i<vertices;i++)
+            if(adj[v][i]==1&&state[i]==0)
+               DFS(i);
+ }
+   
 
