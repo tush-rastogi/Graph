@@ -31,6 +31,9 @@ int dfs_predecessor[MAX];
 void reverse_graph();
 int adjr[MAX][MAX];
 void DFSR(int);
+int indegree(int );
+int indeg[MAX];
+void topological();
 int main()
 {
                 printf("Enter 0 for undirected graph else 1 for directed\n");
@@ -83,9 +86,14 @@ int main()
              printf("Vertices %d is in label %d\n",i,label[i]);*/
 
 
-          printf("DFS of graph is\n");
+        //  printf("DFS of graph is\n");
           
-            DFS_travesral();
+          //  DFS_travesral();
+          
+          
+            printf("Topological Sequence of a Graph\n");
+            
+              topological();
 
 }
 void create_graph() //directed graph
@@ -156,7 +164,7 @@ void delete_edge(int origin,int dest)
      
      adj[origin][dest]=0;
 
-}
+}*/
 
 void enqueue(int v)
 {
@@ -206,7 +214,7 @@ void enqueue(int v)
              return y;
  
 }
-void bf_traversal()
+/*void bf_traversal()
 { 
         int i;
         for(i=0;i<vertices;i++)
@@ -294,7 +302,7 @@ void bfs(int v)
              }
          
 }
-*/
+*//*
 void push(int v)
 {
     top++;
@@ -312,8 +320,8 @@ int pop()
 
         return stack[top--];
 }
-
-void DFS_travesral()
+*/
+/*void DFS_travesral()
 {
           int i;
           for(i=0;i<vertices;i++)
@@ -437,7 +445,7 @@ void DFS_travesral()
            
               }*/
               
-    void reverse_graph(int v)
+/*    void reverse_graph(int v)
     {
     
         int i,j;
@@ -497,11 +505,63 @@ void DFS_travesral()
         }
   
   
-  }
+  } */
   
+    int indegree(int v)
+  {
+     
+       int i,x=0;
+        for(i=0;i<vertices;i++)
+        {
+              if(adj[i][v]==1)
+                x++;
+        
+        }
+
+    return x;
+}
   
+  void topological()
+  {
+   
+           int i,count=0;
+           
+           for(i=0;i<vertices;i++)
+           {
+               indeg[i]=indegree(i);
+               
+                  if(indeg[i]==0)
+                     enqueue(i);
+             
+           }
+           
+           while(front!=-1)
+           {
+                  int x=dequeue();
+                  count++;
+                    printf("%d ",x);
+                    
+                    for(i=0;i<vertices;i++)
+                    {
+                       if(adj[x][i]==1)
+                         {
+                           adj[x][i]=0;
+                             indeg[i]--;
+                             
+                             if(indeg[i]==0)
+                                enqueue(i);
+                         
+                         }
+                    
+                    }
+         
+         
+           }
   
-  
+     if(count<vertices)
+       printf("Graph contains cycle so no toplogical sequence");
+
+} 
   
   
   
